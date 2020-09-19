@@ -30,17 +30,35 @@
                                     <div class="text-center">
                                         <h4 class="text-dark mb-4">Welcome!</h4>
                                     </div>
-                                    <form class="user">
-                                        <div class="form-group"><input class="form-control form-control-user" type="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." name="email"></div>
+                                    <form class="user" method="post" enctype="multioart/form-data" action="">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <input class="form-control form-control-user" type="text" name="username" placeholder="Enter Username...">
+                                        </div>
                                         <div class="form-group"><input class="form-control form-control-user" type="password" id="exampleInputPassword" placeholder="Password" name="password"></div>
+                                        
+                                        {% if form.errors %}
+                                            <p class=" label label-danger">
+                                                Your username and password didn't match. 
+                                                Please try again.
+                                            </p>
+                                        {% endif %}
+                                        
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <div class="form-check"><input class="form-check-input custom-control-input" type="checkbox" id="formCheck-1"><label class="form-check-label custom-control-label" for="formCheck-1">Remember Me</label></div>
                                             </div>
-                                        </div><a class="btn btn-primary btn-block text-white small" role="button" href="{% url 'dashboard' %}" action="dashboard.html">Login</a>
+                                        </div>
+                                        <input type="submit" value="Login" class="btn btn-primary btn-block text-white small" />
                                         <hr>
                                         <hr>
                                     </form>
+                                    {% comment %} <form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Log In</button>
+</form> {% endcomment %}
+
                                     <div class="text-center"><a class="small" href="forgot-password.html">Forgot Password?</a></div>
                                     <div class="text-center"><a class="small" href="register.html"></a></div>
                                 </div>

@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Login - TeenCity</title>
+    <title>Logged Out-TeenCity</title>
 
     <link rel="stylesheet" href="{% static './bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -19,16 +19,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-9 col-lg-12 col-xl-10">
-                <div class="card shadow-lg o-hidden border-0 my-5">
-                    <div class="card-body p-0">
-                        <div class="row">
-                            <div class="text-center">
-                                <p class="font-weight-light">
-                                You have been logged out. <br>
-                                You can log in again <a href="{% url 'home' %}" class="text-info"></a>!
-                                </p>
-                            </div>
-                        </div>
+                <div class="card" style="margin-top: 75px;">
+                    <div class="card-body">
+                        <h6 class="d-lg-flex align-items-lg-center card-title">You have been logged out.</h4>
+                        <h6 class="d-lg-flex align-items-lg-center card-title">You can<a href="{% url 'login' %}" class="text-info">&nbspLog In&nbsp</a> again!</h4>
                     </div>
                 </div>
             </div>
