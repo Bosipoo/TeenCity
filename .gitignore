@@ -5,6 +5,7 @@
 __pycache__
 db.sqlite3
 media
+**/migrations/*
 
 # Backup files # 
 *.bak 
@@ -79,7 +80,7 @@ celerybeat-schedule.*
 .env 
 .venv 
 env/ 
-venv/ 
+tenv/ 
 ENV/ 
 env.bak/ 
 venv.bak/ 

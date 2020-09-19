@@ -1,0 +1,186 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>TeenCity</title>
+    <link rel="stylesheet" href="{% static './bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="{% static './fonts/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static './fonts/material-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static './css/Navigation-with-Search.css' %}">
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-text mx-3"><span>TeenCity</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+                        <a class="nav-link active" href="{% url 'teenlanding' %}"><i class="fas fa-tachometer-alt"></i><span>Teens</span></a>
+                        <a class="nav-link" href="search-with-date.html"><i class="fas fa-tachometer-alt"></i><span>Search using date</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        <ul class="nav navbar-nav flex-nowrap ml-auto">
+                            <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fas fa-search"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right p-3 animated--grow-in" role="menu" aria-labelledby="searchDropdown">
+                                    <form class="form-inline mr-auto navbar-search w-100">
+                                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                            <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <div class="d-none d-sm-block topbar-divider"></div>
+                            <li class="nav-item dropdown no-arrow" role="presentation">
+                                <div class="nav-item dropdown no-arrow">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">
+                                        <span class="d-none d-lg-inline" id="left">Valerie Luna</span>
+                                        <img class="border rounded-circle img-profile" src="{% static './images/avatars/avatar1.jpeg' %}">
+                                    </a>
+                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" id="dropdown" role="menu"><a class="dropdown-item" role="presentation" href="profile.html"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
+                                        <div class="dropdown-divider" role="presentation"></div>
+                                </div>
+                    </div>
+                    </li>
+                    </ul>
+            </div>
+            </nav>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-10 col-lg-8 col-md-8 col-xs-8 col-sm-8">
+                        <h3 class="text-dark mb-4">TEENS</h3>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-xs-4 col-sm-4">
+                        <a class="btn btn-primary" type="button" style="width: 157px;height: 41px;color: rgb(78,115,223);background: rgba(255,255,255,0);" href="{% url 'addteen' %}">Add Teen</a>
+                    </div>
+                </div>
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <p class="text-primary m-0 font-weight-bold">Teens Info</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 text-nowrap">
+                                <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Show&nbsp;<select class="form-control form-control-sm custom-select custom-select-sm"><option value="10" selected="">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select>&nbsp;</label></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-md-right dataTables_filter" id="dataTable_filter"><label><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>
+                            </div>
+                        </div>
+                        <div class="row d-xl-flex justify-content-xl-center align-items-xl-center">
+                            <div class="col d-xl-flex justify-content-xl-center">
+                                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table dataTable my-0" id="dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Firstname</th>
+                                                <th>Lastname</th>
+                                                <th>Age</th>
+                                                <th>Gender</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for teendisp in teendisps%}
+                                            <tr>
+                                                <td>{{teendisp.firstname}}</td>
+                                                <td>{{teendisp.lastname}}</td>
+                                                <td>{{teendisp.age}}</td>
+                                                <td>{{teendisp.gender}}</td>
+                                                <td><a href="{% url 'viewteen' teendisp.id %}"><i class="fas fa-eye" style="font-size: 20px;"></i></a></td>
+                                                <td><a href="{% url 'editteen' teendisp.id %}"><i class="fas fa-pen" style="font-size: 20px;"></i></a></td>
+                                                <td class="d-xl-flex"><a href="{% url 'deleteteen' teendisp.id %}"><i class="material-icons" style="font-size: 23px;">delete</i></a></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                        <tfoot>
+                                            <tr></tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            
+                            <div class="col-md-6">
+                                <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                                    {% if is_paginated %}
+                                        <ul class="pagination">
+                                          
+                                            {% if page_obj.has_previous %}
+                                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                                            {% else %}
+                                                <li class="page-item disabled"><a class="page-link" aria-hidden="true">&laquo;</a></li>
+                                            {% endif %}
+                                            {% for i in paginator.page_range %}
+                                                {% if page_obj.number == i %}
+                                                    <li class="page-item active"><a class="page-link">{{ i }} <span class="sr-only page-link">(current)</span></a></li>
+                                                {% else %}
+                                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if page_obj.has_next %}
+                                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">&raquo;</a></li>
+                                            {% else %}
+                                                <li class="page-item disabled"><a class="page-link" aria-hidden="true">&raquo;</a></li>
+                                            {% endif %}
+                                            {% comment %} {% if page_obj.has_previous %}
+                                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                                            {% else %}
+                                            <li class="page-item disabled"><span>&laquo;</span></li>
+                                            {% endif %}
+                                            {% for i in paginator.page_range %}
+                                            {% if page_obj.number == i %}
+                                                <li class="page-item active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                                            {% else %}
+                                                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                            {% endif %}
+                                            {% endfor %}
+                                            {% if page_obj.has_next %}
+                                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                                            {% else %}
+                                            <li class="disabled"><span>&raquo;</span></li>
+                                            {% endif %} {% endcomment %}
+                                        </ul>
+                                    {% endif %}
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>Copyright © TeenCity 2019</span></div>
+            </div>
+        </footer>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+    <script src="{% static './js/jquery.min.js' %}"></script>
+    <script src="{% static './bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static './js/chart.min.js' %}"></script>
+    <script src="{% static './js/bs-init.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="{% static './js/theme.js' %}"></script>
+</body>
+
+</html>
