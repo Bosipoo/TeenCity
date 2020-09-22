@@ -47,3 +47,16 @@ class delete_teen(DeleteView):
     template_name = "delete-teen.html"
     success_url = reverse_lazy('teenlanding')
     context_object_name = "del"
+
+def search_date(request):
+    if request.GET:
+        search_term = request.GET['search_term']
+        search_results = Teen.objects.filter(
+            Q(dob=search_term)
+        )
+        context = {
+            'search_term': search_term,
+            'date': search_results
+        }
+        return render(request, 'search-with-date.html', context)
+

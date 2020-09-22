@@ -1,16 +1,18 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Blank Page - TeenCity</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <title>Search with date - TeenCity</title>
+    <link rel="stylesheet" href="{% static './bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
-    <link rel="stylesheet" href="assets/css/Navigation-with-Search.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="{% static './fonts/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static './fonts/material-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static './css/Navigation-with-Search.css' %}">
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
 </head>
 
 <body id="page-top">
@@ -22,9 +24,10 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="dashboard.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a><a class="nav-link" href="add-teen.html"><i class="fas fa-tachometer-alt"></i><span>Add teen</span></a><a class="nav-link" href="teen-details.html"><i class="fas fa-tachometer-alt"></i><span>Registered teens</span></a>
-                        <a
-                            class="nav-link active" href="search-with-date.html"><i class="fas fa-tachometer-alt"></i><span>Search using date</span></a>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+                        <a class="nav-link" href="{% url 'teenlanding' %}"><i class="fas fa-tachometer-alt"></i><span>Teen</span></a>
+                        <a class="nav-link active" href="{% url 'datesearch' %}"><i class="fas fa-tachometer-alt"></i><span>Search using date</span></a>
                     </li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
