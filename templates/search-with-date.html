@@ -27,7 +27,7 @@
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
                         <a class="nav-link" href="{% url 'teenlanding' %}"><i class="fas fa-tachometer-alt"></i><span>Teen</span></a>
-                        <a class="nav-link active" href="{% url 'datesearch' %}"><i class="fas fa-tachometer-alt"></i><span>Search using date</span></a>
+                        <a class="nav-link active" href="{% url 'datesearch' %}"><i class="fas fa-tachometer-alt"></i><span>Search</span></a>
                     </li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
@@ -63,11 +63,10 @@
             <div class="container-fluid">
                 <div class="card" style="background-color: rgb(232,226,226);">
                     <div class="card-body">
-                        <h3 class="text-dark mb-1">Search using date of birth</h3>
-                        <form class="d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group" style="background-color: #ffffff;"><input class="bg-light form-control border-0 small around" type="text" placeholder="Search for ..." style="width: 343px;color: rgb(99,114,217);">
-                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
-                            </div>
+                        <h3 class="text-dark mb-1">Find teen</h3>
+                        <form class="d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="get">
+                            {{filter.form}}
+                            <button class="btn btn-primary" type="submit">Search</button>
                         </form>
                         <div class="table-responsive" style="background-color: #fefefe;margin-top: 33px;">
                             <table class="table">
@@ -83,16 +82,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for teen in filter.qs %}
                                     <tr>
-                                        <td>Cell 1</td>
-                                        <td>Cell 2</td>
-                                        <td>Cell 2</td>
-                                        <td>Cell 2</td>
-                                        <td>Cell 2</td>
-                                        <td>Cell 2</td>
-                                        <td>Cell 2</td>
+                                        <td>{{teen.firstname}}</td>
+                                        <td>{{teen.lastname}}</td>
+                                        <td>{{teen.dob}}</td>
+                                        <td>{{teen.age}}</td>
+                                        <td>{{teen.phone}}</td>
+                                        <td>{{teen.hobbies}}</td>
+                                        <td>{{teen.ambition}}</td>
                                     </tr>
                                     <tr></tr>
+                                    {% endfor %}
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -106,12 +108,17 @@
             </div>
         </footer>
     </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/chart.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
+    <script>
+        document.getElementById("id_firstname").classList.add("form-control-mod");
+        document.getElementById("id_lastname").classList.add("form-control-mod");
+        document.getElementById("id_dob").classList.add("form-control-mod");
+    </script>
+    <script src="{% static './js/jquery.min.js' %}"></script>
+    <script src="{% static './bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static './js/chart.min.js' %}"></script>
+    <script src="{% static './js/bs-init.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-    <script src="assets/js/theme.js"></script>
+    <script src="{% static './js/theme.js' %}"></script>
 </body>
 
 </html>

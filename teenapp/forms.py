@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import ModelForm
+from dobwidget import DateOfBirthWidget
 from .models import Teen
 
 BA_CHOICES = [('Y','Yes'),('N','No')]
@@ -25,4 +26,7 @@ class Teens(forms.ModelForm):
         model = Teen
         fields = ['firstname','lastname','othername','email','gender','dob','age',
                     'phone','school','level','cclass','address','ambition','bornagain','hobbies']
+        widgets = {
+            'dob': DateOfBirthWidget(),
+        }
         

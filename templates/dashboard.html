@@ -47,14 +47,14 @@
                                     </form>
                                 </div>
                             </li>
-                            <div class="d-none d-sm-block topbar-divider"></div>
+                            <div class="d-none d-sm-block topbar-divider"></div> 
                             <li class="nav-item dropdown no-arrow" role="presentation">
                                 <div class="nav-item dropdown no-arrow">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline" id="left">Valerie Luna</span>
+                                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline" id="left">{{ request.user.username }}</span>
                                         <img class="border rounded-circle img-profile" src="{% static './images/avatars/avatar1.jpeg' %}">
                                     </a>
                                         <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
-                                            <a class="dropdown-item" role="presentation" href="profile.html"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a>
+                                            <a class="dropdown-item" role="presentation" href="{% url 'userprofile' request.user.username %}"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" role="presentation" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
                                             <div class="dropdown-divider" role="presentation"></div>
@@ -77,7 +77,7 @@
                                         <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Teens</span></div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto col-xl-12">
-                                                <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span>50</span></div>
+                                                <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span>{{teens}}</span></div>
                                             </div>
                                         </div>
                                     </div>
@@ -92,7 +92,7 @@
                                 <div class="row align-items-center no-gutters">
                                     <div class="col mr-2">
                                         <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Admins</span></div>
-                                        <div class="text-dark font-weight-bold h5 mb-0"><span>18</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>{{admins}}</span></div>
                                     </div>
                                     <div class="col-auto"><i class="fas fa-users fa-2x text-gray-300"></i></div>
                                 </div>
@@ -101,6 +101,60 @@
                     </div>
                 </div>
                 <div class="row">
+                <!-- Birthdays today-->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow mb-4"></div>
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="text-primary font-weight-bold m-0">Celebrating Today</h6>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                {% comment %} {% if birthdays %} {% endcomment %}
+                                {% for birthday in birthdays %}
+                                    {% if birthday.dob.day == now_day and birthday.dob.month == now_month %}
+                                        <li class="list-group-item">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col-11 mr-2">
+                                                    <h6 class="mb-0"><strong>{{birthday.firstname}}</strong></h6>
+                                                    <span class="text-xs">{{birthday.dob}}</span>
+                                                </div>
+                                            </div>
+                                        </li> 
+                                    {% endif %}
+                                    {% if birthday.dob.day != now_day and birthday.dob.month != now_month %}
+                                        <li class="list-group-item">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col-11 mr-2">
+                                                    <h6 class="mb-0"><strong>Abeg</strong></h6>
+                                                </div>
+                                            </div>
+                                        </li> 
+                                    {% endif %}
+                                {% comment %} {% else %}
+                                    <li class="list-group-item">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col-11 mr-2">
+                                                <h6 class="mb-0"><strong>None</strong></h6>
+                                            </div>    
+                                        </div>    
+                                    </li>              {% endcomment %}
+                                {% endfor %}
+                                {% comment %} {% else %}
+                                    <li class="list-group-item">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col-11 mr-2">
+                                                    <h6 class="mb-0"><strong>No birthdays in the next 2 days</strong></h6>
+                                                    <span class="text-xs">{{tomorrow_day}} - {{nexttomorrow_day}}</span>
+                                                </div>
+                                            </div>
+                                    </li> {% endcomment %}
+                                
+
+                            </ul>                       
+                        </div>
+                    </div>
+                <!--End-->
+                <!--Upcoming Birthdays-->
                     <div class="col-lg-6 mb-4">
                         <div class="card shadow mb-4"></div>
                         <div class="card shadow mb-4">
@@ -108,22 +162,54 @@
                                 <h6 class="text-primary font-weight-bold m-0">Upcoming Birthdays</h6>
                             </div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col-xl-12 mr-2">
-                                            <h6 class="mb-0"><strong>Lunch meeting</strong></h6><span class="text-xs">10:30 AM</span></div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col-xl-12 mr-2">
-                                            <h6 class="mb-0"><strong>Lunch meeting</strong></h6><span class="text-xs">11:30 AM</span></div>
-                                    </div>
-                                </li>
-                            </ul>
+                                {% for birthday in birthdays %}
+                                    {% if birthday.dob.day == tomorrow_day and birthday.dob.month == tomorrow_month %}
+                                        <li class="list-group-item">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col-11 mr-2">
+                                                    <h6 class="mb-0"><strong>{{birthday.firstname}}</strong></h6>
+                                                    <span class="text-xs">{{birthday.dob}}</span>
+                                                </div>
+                                            </div>
+                                        </li> 
+                                    {% comment %} {% else %}
+                                        <li class="list-group-item">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col-11 mr-2">
+                                                    <h6 class="mb-0"><strong>No birthdays in the next tomo</strong></h6>
+                                                    <span class="text-xs">{{tomorrow_day}} - {{nexttomorrow_day}}</span>
+                                                </div>
+                                            </div>
+                                        </li> {% endcomment %}
+                                    {% endif %}
+                                    {% if birthday.dob.day != tomorrow_day and birthday.dob.month != tomorrow_month %}
+                                        <li class="list-group-item">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col-11 mr-2">
+                                                    <h6 class="mb-0"><strong>Lewll</strong></h6>
+                                                </div>
+                                            </div>
+                                        </li> 
+                                    {% endif %}
+
+                                    {% if birthday.dob.day == nexttomorrow_day and birthday.dob.month == nexttomorrow_month %}
+                                        <li class="list-group-item">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col-11 mr-2">
+                                                    <h6 class="mb-0"><strong>{{birthday.firstname}}</strong></h6>
+                                                    <span class="text-xs">{{birthday.dob}}</span>
+                                                </div>
+                                            </div>
+                                        </li> 
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                
+                            </ul>                       
                         </div>
                     </div>
-                    <div class="col col-lg-6 pb-6">
+                <!--End-->
+                    <div class="col col-lg-12 pb-6">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h6 class="text-primary font-weight-bold m-0">Teens by Age</h6>

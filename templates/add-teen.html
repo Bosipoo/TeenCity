@@ -27,7 +27,7 @@
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
                         <a class="nav-link" href="{% url 'teenlanding' %}"><i class="fas fa-tachometer-alt"></i><span>Teens</span></a>
-                        <a class="nav-link" href="{% url 'datesearch' %}"><i class="fas fa-tachometer-alt"></i><span>Search using date</span></a>
+                        <a class="nav-link" href="{% url 'datesearch' %}"><i class="fas fa-tachometer-alt"></i><span>Search</span></a>
                     </li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
@@ -68,7 +68,7 @@
                     <h4 class="text-dark mb-1">&lt;&lt;Previous</h4>
                 </a>
                 <div class="container-fluid d-flex justify-content-center">
-                    <div class="card text-break text-left shadow align-self-center" style="width: 700px;">
+                    <div class="card text-break text-left shadow align-self-center" style="width: 750px;">
                         <div class="card-header py-3">
                             <h6 class="text-primary m-0 font-weight-bold" style="font-size: 20px;font-family: Nunito, sans-serif;">Add teen</h6>
                         </div>
@@ -76,6 +76,7 @@
                             {% comment %} {% load custom_tags %} {% endcomment %}
                             <form method="POST" enctype="multipart/form-data" >
                                 {% csrf_token %}
+
                                 <div class="form-row">
                                     <div class="col-12 col-sm-12 col-md-12 col-xl-6 col-lg-6">
                                         <div class="form-group">
@@ -190,7 +191,7 @@
         document.getElementById("id_othername").classList.add("form-control");
         document.getElementById("id_email").classList.add("form-control");
         document.getElementById("id_gender").classList.add("form-check");
-        document.getElementById("id_dob").classList.add("form-control");
+        document.getElementById("id_dob_0").classList.add("dob");
         document.getElementById("id_age").classList.add("form-control");
         document.getElementById("id_school").classList.add("form-control");
         document.getElementById("id_level").classList.add("form-check");

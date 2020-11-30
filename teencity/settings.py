@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'phonenumber_field',
     'teenapp',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +121,5 @@ STATICFILES_DIRS = (
 # LOGIN_URL = 'home'
 # LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'dashboard'
+
+AUTH_PROFILE_MODULE = "teenapp.UserProfile"

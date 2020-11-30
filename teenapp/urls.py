@@ -9,5 +9,6 @@ urlpatterns = [
     path('teens/edit/<int:pk>/',views.edit_teen_details.as_view(), name="editteen"), 
     path('teens/delete/<int:pk>/',views.delete_teen.as_view(), name="deleteteen"),
     path('search-with-date/',views.search_date, name="datesearch"),
+    path('profile/<str:username>/', views.UserDetailView.as_view(), name="userprofile"),
 ]
- 
+  

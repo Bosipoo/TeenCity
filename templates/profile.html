@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 
@@ -5,12 +7,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Profile - TeenCity</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static './bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
-    <link rel="stylesheet" href="assets/css/Navigation-with-Search.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="{% static './fonts/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static './fonts/material-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static './css/Navigation-with-Search.css' %}">
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
 </head>
 
 <body id="page-top">
@@ -62,7 +64,7 @@
                 <div class="row mb-3">
                     <div class="col-lg-4">
                         <div class="card mb-3">
-                            <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
+                            <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="{{object.image}}" width="160" height="160">
                                 <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Change Photo</button></div>
                             </div>
                         </div>
@@ -105,21 +107,37 @@
                                         <p class="text-primary m-0 font-weight-bold">User Settings</p>
                                     </div>
                                     <div class="card-body">
-                                        <form>
+                                        <form action="" method="POST" enctype="multipart/form-data">
+                                            {% csrf_token %}
                                             <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="username"><strong>Username</strong></label><input class="form-control" type="text" placeholder="user.name" name="username"></div>
+                                                    <div class="form-group">
+                                                        <label for="username"><strong>Username</strong></label>
+                                                        {{form.username}}
+                                                    </div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="email"><strong>Email Address</strong></label><input class="form-control" type="email" placeholder="user@example.com" name="email"></div>
+                                                    <div class="form-group">
+                                                        <label for="email"><strong>Email Address</strong></label>
+                                                        {{form.email}}
+                                                        {% comment %} <input class="form-control" type="email" value="{{object.email}}" name="email"> {% endcomment %}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="first_name"><strong>First Name</strong></label><input class="form-control" type="text" placeholder="John" name="first_name"></div>
+                                                    <div class="form-group">
+                                                        <label for="first_name"><strong>First Name</strong></label>
+                                                        {{form.first_name}}
+                                                        {% comment %} <input class="form-control" type="text" value="{{object.first_name}}" name="first_name"> {% endcomment %}
+                                                    </div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="last_name"><strong>Last Name</strong></label><input class="form-control" type="text" placeholder="Doe" name="last_name"></div>
+                                                    <div class="form-group">
+                                                        <label for="last_name"><strong>Last Name</strong></label>
+                                                        {{form.last_name}}
+                                                        {% comment %} <input class="form-control" type="text" value="{{object.last_name}}" name="last_name"> {% endcomment %}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Save Settings</button></div>
@@ -134,16 +152,22 @@
         </div>
         <footer class="bg-white sticky-footer">
             <div class="container my-auto">
-                <div class="text-center my-auto copyright"><span>Copyright © TeenCity 2019</span></div>
+                <div class="text-center my-auto copyright"><span>Copyright © TeenCity 2020</span></div>
             </div>
         </footer>
     </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/chart.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
+    <script>
+        document.getElementById("id_username").classList.add("form-control");
+        document.getElementById("id_email").classList.add("form-control");
+        document.getElementById("id_first_name").classList.add("form-control");
+        document.getElementById("id_last_name").classList.add("form-control");
+    </script>
+    <script src="{% static './js/jquery.min.js' %}"></script>
+    <script src="{% static './bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static './js/chart.min.js' %}"></script>
+    <script src="{% static './js/bs-init.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-    <script src="assets/js/theme.js"></script>
+    <script src="{% static './js/theme.js' %}"></script>
 </body>
 
 </html>

@@ -1,17 +1,42 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from datetime import timedelta
+from django.utils import timezone
 
-from .models import Teen
+from .models import *
+from django.contrib.auth.models import User
 from .forms import Teens
-
-# Create your views here.
-# def home(request):
-#     return render(request, 'registration/login.html')
+from .filters import TeenFilter
 
 def dashboard(request):
-    return render(request,'dashboard.html')
+    teens = Teen.objects.count()
+    admins = User.objects.count()
+    profile = User.objects.all()
+    birthdays = Teen.objects.all()
+
+    datetime_now = timezone.now()
+    now_day, now_month = datetime_now.day, datetime_now.month
+    datetime_tomorrow = datetime_now + timedelta(days=1)
+    tomorrow_day, tomorrow_month = datetime_tomorrow.day, datetime_tomorrow.month
+    datetime_nexttomorrow = datetime_now + timedelta(days=2)
+    nexttomorrow_day, nexttomorrow_month = datetime_nexttomorrow.day, datetime_nexttomorrow.month
+    context = {
+        'teens': teens,
+        'admins': admins,
+        'profile': profile,
+        'birthdays': birthdays,
+        'now_day': now_day,
+        'now_month': now_month,
+        'tomorrow_day': tomorrow_day,
+        'tomorrow_month': tomorrow_month,
+        'nexttomorrow_day': nexttomorrow_day,
+        'nexttomorrow_month': nexttomorrow_month,
+    }
+
+    return render(request,'dashboard.html',context)
 
 class addTeen(CreateView):
     form_class = Teens
@@ -49,14 +74,47 @@ class delete_teen(DeleteView):
     context_object_name = "del"
 
 def search_date(request):
-    if request.GET:
-        search_term = request.GET['search_term']
-        search_results = Teen.objects.filter(
-            Q(dob=search_term)
-        )
-        context = {
-            'search_term': search_term,
-            'date': search_results
-        }
-        return render(request, 'search-with-date.html', context)
+    data = Teen.objects.all()
+    myFilter = TeenFilter(request.GET, queryset=data)
+    return render(request, 'search-with-date.html', {'filter': myFilter})
 
+# def get_user_profile(request, username):
+#     user = User.objects.get(username=username)
+#     return render(request, 'teenapp/profile.html', {'user':user})
+
+# class UserDetailView(LoginRequiredMixin, DetailView):
+#     model = User
+#     slug_field = "username"
+#     slug_url_kwarg = "username"
+#     template_name = "profile.html"
+
+#     def get_object(self):
+#         object = get_object_or_404(User, username=self.kwargs.get("username"))
+
+#         #only the owner can view this page
+#         if self.request.user.username == object.username:
+#             return object
+#         else:
+#             #redirect to 404 page
+#             print("You are not the owner?!!")
+
+class UserDetailView(LoginRequiredMixin, UpdateView):
+    model = User
+    template_name = "profile.html"
+    fields = ['username','email','first_name','last_name']
+    context_object_name = 'userdet'
+
+    def form_valid(self, form):
+        instance = form.save()
+        # messages.success(self.request, 'Teen has been updated!')
+        return redirect('/teens')
+
+    def get_object(self):
+        object = get_object_or_404(User, username=self.kwargs.get("username"))
+
+        #only the owner can view this page
+        if self.request.user.username == object.username:
+            return object
+        else:
+            #redirect to 404 page
+            print("You are not the owner?!!")
