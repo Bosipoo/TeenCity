@@ -113,13 +113,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
 # for authentication
 # LOGIN_URL = 'home'
-# LOGOUT_URL = 'logout'
+LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'dashboard'
 
 AUTH_PROFILE_MODULE = "teenapp.UserProfile"

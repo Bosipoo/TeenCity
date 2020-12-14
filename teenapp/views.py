@@ -5,6 +5,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from datetime import timedelta
 from django.utils import timezone
+from django.db.models import Sum
+
 
 from .models import *
 from django.contrib.auth.models import User
@@ -23,6 +25,15 @@ def dashboard(request):
     tomorrow_day, tomorrow_month = datetime_tomorrow.day, datetime_tomorrow.month
     datetime_nexttomorrow = datetime_now + timedelta(days=2)
     nexttomorrow_day, nexttomorrow_month = datetime_nexttomorrow.day, datetime_nexttomorrow.month
+    
+    labels = []
+    data = []
+
+    queryset = Teen.objects.values('age').annotate(teen_age=Sum('age')).order_by('-teen_age')
+    for entry in queryset:
+        labels.append(entry['age'])
+        data.append(entry['teen_age'])
+
     context = {
         'teens': teens,
         'admins': admins,
@@ -34,6 +45,8 @@ def dashboard(request):
         'tomorrow_month': tomorrow_month,
         'nexttomorrow_day': nexttomorrow_day,
         'nexttomorrow_month': nexttomorrow_month,
+        'labels': labels,
+        'data': data,
     }
 
     return render(request,'dashboard.html',context)
@@ -77,26 +90,6 @@ def search_date(request):
     data = Teen.objects.all()
     myFilter = TeenFilter(request.GET, queryset=data)
     return render(request, 'search-with-date.html', {'filter': myFilter})
-
-# def get_user_profile(request, username):
-#     user = User.objects.get(username=username)
-#     return render(request, 'teenapp/profile.html', {'user':user})
-
-# class UserDetailView(LoginRequiredMixin, DetailView):
-#     model = User
-#     slug_field = "username"
-#     slug_url_kwarg = "username"
-#     template_name = "profile.html"
-
-#     def get_object(self):
-#         object = get_object_or_404(User, username=self.kwargs.get("username"))
-
-#         #only the owner can view this page
-#         if self.request.user.username == object.username:
-#             return object
-#         else:
-#             #redirect to 404 page
-#             print("You are not the owner?!!")
 
 class UserDetailView(LoginRequiredMixin, UpdateView):
     model = User

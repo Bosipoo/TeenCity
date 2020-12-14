@@ -1,4 +1,111 @@
-{% load static %}
+{% extends 'base.html' %}
+
+{% block title %}
+    TeenCity - Dashboard
+{% endblock title %}
+
+{% block content %}
+    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-dark mb-0">Dashboard</h3>
+    </div>
+    <!-- Row One -->
+    <div class="row pb-4">
+        <div class="col-12 col-lg-6 col-xl-6 col-md-6 col-sm-12">
+            <div class="card shadow border-left-info py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Teens</span></div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto col-xl-12">
+                                    <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span>{{teens}}</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-6 col-md-6 col-sm-12">
+            <div class="card shadow border-left-warning py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Admins</span></div>
+                            <div class="text-dark font-weight-bold h5 mb-0"><span>{{admins}}</span></div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-users fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Row One -->
+
+    <!-- Row Two -->
+    <div class="row">
+        <!-- Birthdays today-->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow mb-4"></div>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="text-primary font-weight-bold m-0">Celebrating Today</h6>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col-11 mr-2">
+                                <h6 class="mb-0"><strong>{{birthday.firstname}}</strong></h6>
+                                <span class="text-xs">{{birthday.dob}}</span>
+                            </div>
+                        </div>
+                    </li> 
+                </ul>                       
+            </div>
+        </div>
+        <!--End-->
+        <!--Upcoming Birthdays-->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow mb-4"></div>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="text-primary font-weight-bold m-0">Upcoming Birthdays</h6>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col-11 mr-2">
+                                <h6 class="mb-0"><strong>Boss</strong></h6>
+                                <span class="text-xs">12/12/12</span>
+                            </div>
+                        </div>
+                    </li> 
+                </ul>                       
+            </div>
+        </div>
+        <!--End-->
+        <div class="col col-lg-12 pb-6">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Teens by Age</h6>
+                    <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button"></button>
+                        <div class="dropdown-menu shadow dropdown-menu-right animated--fade-in" role="menu">
+                            <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" role="presentation" href="#">&nbsp;Action</a><a class="dropdown-item" role="presentation" href="#">&nbsp;Another action</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="#">&nbsp;Something else here</a></div>
+                    </div>
+                </div>
+                <div class="card-body" id="container" style="width: 75%;">
+                    <canvas id="dashboard" data-url="{% url 'dashboard' %}"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End Row Two -->
+
+{% endblock content %}
+
+{% comment %} {% load static %}
 
 <!DOCTYPE html>
 <html>
@@ -64,42 +171,11 @@
                         </ul>
                     </div>
                 </nav>
-            <div class="container-fluid">
+                <div class="container-fluid">
                 <div class="d-sm-flex justify-content-between align-items-center mb-4">
                     <h3 class="text-dark mb-0">Dashboard</h3>
                 </div>
-                <div class="row pb-4">
-                    <div class="col-12 col-lg-6 col-xl-6 col-md-6 col-sm-12">
-                        <div class="card shadow border-left-info py-2">
-                            <div class="card-body">
-                                <div class="row align-items-center no-gutters">
-                                    <div class="col mr-2">
-                                        <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Teens</span></div>
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-auto col-xl-12">
-                                                <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span>{{teens}}</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-6 col-xl-6 col-md-6 col-sm-12">
-                        <div class="card shadow border-left-warning py-2">
-                            <div class="card-body">
-                                <div class="row align-items-center no-gutters">
-                                    <div class="col mr-2">
-                                        <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Admins</span></div>
-                                        <div class="text-dark font-weight-bold h5 mb-0"><span>{{admins}}</span></div>
-                                    </div>
-                                    <div class="col-auto"><i class="fas fa-users fa-2x text-gray-300"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="row">
                 <!-- Birthdays today-->
                     <div class="col-lg-6 mb-4">
@@ -108,9 +184,9 @@
                             <div class="card-header py-3">
                                 <h6 class="text-primary font-weight-bold m-0">Celebrating Today</h6>
                             </div>
-                            <ul class="list-group list-group-flush">
+                            <ul class="list-group list-group-flush">{% endcomment %}
                                 {% comment %} {% if birthdays %} {% endcomment %}
-                                {% for birthday in birthdays %}
+                                {% comment %} {% for birthday in birthdays %}
                                     {% if birthday.dob.day == now_day and birthday.dob.month == now_month %}
                                         <li class="list-group-item">
                                             <div class="row align-items-center no-gutters">
@@ -137,8 +213,8 @@
                                                 <h6 class="mb-0"><strong>None</strong></h6>
                                             </div>    
                                         </div>    
-                                    </li>              {% endcomment %}
-                                {% endfor %}
+                                    </li>
+                                {% endfor %} {% endcomment %}
                                 {% comment %} {% else %}
                                     <li class="list-group-item">
                                             <div class="row align-items-center no-gutters">
@@ -148,8 +224,28 @@
                                                 </div>
                                             </div>
                                     </li> {% endcomment %}
-                                
-
+                                {% comment %} {% for birthday in birthdays %}
+                                {% if birthday.dob.day == now_day and birthday.dob.month == now_month %}
+                                    <li class="list-group-item">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col-11 mr-2">
+                                                <h6 class="mb-0"><strong>{{birthday.firstname}}</strong></h6>
+                                                <span class="text-xs">{{birthday.dob}}</span>
+                                            </div>
+                                        </div>
+                                    </li> 
+    
+                                {% endif %}
+                                {% endfor %}
+                                {% if birthday.dob.day != now_day and birthday.dob.month != now_month %}
+                                    <li class="list-group-item">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col-11 mr-2">
+                                                    <h6 class="mb-0"><strong>Abeg</strong></h6>
+                                                </div>
+                                            </div>
+                                    </li> 
+                                {% endif %}
                             </ul>                       
                         </div>
                     </div>
@@ -163,6 +259,7 @@
                             </div>
                             <ul class="list-group list-group-flush">
                                 {% for birthday in birthdays %}
+
                                     {% if birthday.dob.day == tomorrow_day and birthday.dob.month == tomorrow_month %}
                                         <li class="list-group-item">
                                             <div class="row align-items-center no-gutters">
@@ -172,7 +269,7 @@
                                                 </div>
                                             </div>
                                         </li> 
-                                    {% comment %} {% else %}
+                                    {% else %}
                                         <li class="list-group-item">
                                             <div class="row align-items-center no-gutters">
                                                 <div class="col-11 mr-2">
@@ -180,9 +277,9 @@
                                                     <span class="text-xs">{{tomorrow_day}} - {{nexttomorrow_day}}</span>
                                                 </div>
                                             </div>
-                                        </li> {% endcomment %}
+                                        </li> 
                                     {% endif %}
-                                    {% if birthday.dob.day != tomorrow_day and birthday.dob.month != tomorrow_month %}
+                                    {% comment %} {% if birthday.dob.day != tomorrow_day and birthday.dob.month != tomorrow_month %}
                                         <li class="list-group-item">
                                             <div class="row align-items-center no-gutters">
                                                 <div class="col-11 mr-2">
@@ -190,9 +287,9 @@
                                                 </div>
                                             </div>
                                         </li> 
-                                    {% endif %}
+                                    {% endif %} {% endcomment %}
 
-                                    {% if birthday.dob.day == nexttomorrow_day and birthday.dob.month == nexttomorrow_month %}
+                                    {% comment %} {% if birthday.dob.day == nexttomorrow_day and birthday.dob.month == nexttomorrow_month %}
                                         <li class="list-group-item">
                                             <div class="row align-items-center no-gutters">
                                                 <div class="col-11 mr-2">
@@ -202,9 +299,17 @@
                                             </div>
                                         </li> 
                                     {% endif %}
-                                {% endfor %}
-                                
-                                
+                                {% endfor %} {% endcomment %}
+                                {% comment %} {% if birthday.dob.day != tomorrow_day and birthday.dob.month != tomorrow_month %}
+                                    <li class="list-group-item">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col-11 mr-2">
+                                                <h6 class="mb-0"><strong>Lewll</strong></h6>
+                                            </div>
+                                        </div>
+                                    </li> 
+                                {% endif %} {% endcomment %}
+                                {% comment %}                                 
                             </ul>                       
                         </div>
                     </div>
@@ -219,8 +324,8 @@
                                         <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="#">&nbsp;Something else here</a></div>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <div class="chart-area"><canvas data-bs-chart="{&quot;type&quot;:&quot;doughnut&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Direct&quot;,&quot;Social&quot;,&quot;Referral&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;&quot;,&quot;backgroundColor&quot;:[&quot;#4e73df&quot;,&quot;#1cc88a&quot;,&quot;#36b9cc&quot;],&quot;borderColor&quot;:[&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;],&quot;data&quot;:[&quot;50&quot;,&quot;30&quot;,&quot;15&quot;]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:true,&quot;position&quot;:&quot;bottom&quot;},&quot;title&quot;:{}}}"></canvas></div>
+                            <div class="card-body" id="container" style="width: 75%;">
+                                <canvas id="dashboard" data-url="{% url 'dashboard' %}"></canvas>
                             </div>
                         </div>
                     </div>
@@ -239,6 +344,9 @@
     <script src="{% static './js/bs-init.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="{% static './js/theme.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
 </body>
 
-</html>
+</html> {% endcomment %}
