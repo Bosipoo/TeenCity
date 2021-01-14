@@ -119,8 +119,18 @@ STATICFILES_DIRS = (
 )
 
 # for authentication
-# LOGIN_URL = 'home'
+LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'dashboard'
 
 AUTH_PROFILE_MODULE = "teenapp.UserProfile"
+
+#Email
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'oyinkaan@gmail.com' #Your Gmail Account
+EMAIL_HOST_PASSWORD = 'Bosipo16' #Your Password
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL= False

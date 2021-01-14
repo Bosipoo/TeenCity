@@ -6,12 +6,25 @@ from django.urls import reverse_lazy
 from datetime import timedelta
 from django.utils import timezone
 from django.db.models import Sum
-
+from django.contrib import messages
 
 from .models import *
 from django.contrib.auth.models import User
 from .forms import Teens
 from .filters import TeenFilter
+
+# def login_view(request):
+#     username = request.POST['username']
+#     password = request.POST['password']
+#     user = authenticate(request, username=username, password=password)
+#     if user is not None:
+#         login(request, user)
+#         # Redirect to a success page.
+#         return redirect('dashboard')
+#     else:
+#         # Return an 'invalid login' error message.
+#         messages.error(request,'username or password not correct')
+#         return redirect('login')
 
 def dashboard(request):
     teens = Teen.objects.count()
